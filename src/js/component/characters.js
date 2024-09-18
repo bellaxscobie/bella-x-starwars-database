@@ -1,34 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const CharacterCard = ({ character }) => {
+const CharacterCards = () => {
+  const [characters, setCharacters] = useState([]);
+
+  useEffect(() => {
+    fetch("https://www.swapi.tech/api/people/")
+      .then((response) => response.json())
+      .then((data) => {
+
+        const characterPromises = data.results.map((character) =>
+          fetch(`https://www.swapi.tech/api/people/${character.uid}`)
+            .then((response) => response.json())
+            .then((details) => ({
+              id: character.uid,
+              name: character.name,
+              birthYear: details.result.properties.birth_year,
+              gender: details.result.properties.gender,
+            }))
+        );
+        Promise.all(characterPromises).then((fetchedCharacters) => {
+          setCharacters(fetchedCharacters);
+        });
+      })
+      .catch((error) => console.error("Error fetching characters:", error));
+  }, []);
+
   return (
-    <div className="card mb-3">
-      <div className="card-body">
-        <h5 className="card-title">{character.name}</h5>
-        <p className="card-text">
-          <strong>Hair Color:</strong> {character.hair_color}
-        </p>
-        <p className="card-text">
-          <strong>Eye Color:</strong> {character.eye_color}
-        </p>
-        <p className="card-text">
-          <strong>Gender:</strong> {character.gender}
-        </p>
+    <div className="container">
+      <div className="row">
+        {characters.map((char) => (
+          <div className="col-md-4 mb-4" key={char.id}>
+            <div className="card" style={{ width: "18rem" }}>
+              <img
+                src={`https://starwars-visualguide.com/assets/img/characters/${char.id}.jpg`}
+                className="card-img-top"
+                alt={char.name}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{char.name}</h5>
+                <p className="card-text">Birth Year: {char.birthYear}</p>
+                <p className="card-text">Gender: {char.gender}</p>
+                <a href="#" className="btn btn-primary">
+                  Learn more
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-const Characters = ({ characters }) => {
-  return (
-    <div className="row">
-      {characters.map((character) => (
-        <div className="col-md-4" key={character.uid}>
-          <CharacterCard character={character} />
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default Characters;
+export default CharacterCards;
