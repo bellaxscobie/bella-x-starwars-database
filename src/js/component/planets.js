@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const PlanetCards = () => {
+export const PlanetCards = () => {
   const [planets, setPlanets] = useState([]);
 
   useEffect(() => {
@@ -27,9 +28,10 @@ const PlanetCards = () => {
                   Climate: {planet.climate}<br />
                   Terrain: {planet.terrain}
                 </p>
-                <a href="#" className="btn btn-primary">
+                {/* Corrected Link path */}
+                <Link to={`/planets/${planet.uid}`} className="btn btn-primary">
                   Learn more
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -40,4 +42,3 @@ const PlanetCards = () => {
 };
 
 export default PlanetCards;
-

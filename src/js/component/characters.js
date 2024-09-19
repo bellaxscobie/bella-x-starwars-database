@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const CharacterCards = () => {
+export const CharacterCards = () => {
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
     fetch("https://www.swapi.tech/api/people/")
       .then((response) => response.json())
       .then((data) => {
-
         const characterPromises = data.results.map((character) =>
           fetch(`https://www.swapi.tech/api/people/${character.uid}`)
             .then((response) => response.json())
@@ -15,6 +15,7 @@ const CharacterCards = () => {
               id: character.uid,
               name: character.name,
               birthYear: details.result.properties.birth_year,
+              eyeColor: details.result.properties.eye_color,
               gender: details.result.properties.gender,
             }))
         );
@@ -39,10 +40,11 @@ const CharacterCards = () => {
               <div className="card-body">
                 <h5 className="card-title">{char.name}</h5>
                 <p className="card-text">Birth Year: {char.birthYear}</p>
+                <p className="card-text">Eye Color: {char.eyeColor}</p>
                 <p className="card-text">Gender: {char.gender}</p>
-                <a href="#" className="btn btn-primary">
+                <Link to={`/characters/${char.id}`} className="btn btn-primary">
                   Learn more
-                </a>
+                </Link>
               </div>
             </div>
           </div>

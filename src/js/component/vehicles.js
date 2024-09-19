@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const VehicleCards = () => {
+export const VehicleCards = () => {
     const [vehicles, setVehicles] = useState([]);
 
     useEffect(() => {
         fetch('https://www.swapi.tech/api/vehicles/')
             .then((response) => response.json())
-            .then((data) => {
-                setVehicles(data.results);
-            })
+            .then((data) => setVehicles(data.results))
             .catch((error) => console.error('Error fetching vehicles:', error));
     }, []);
 
     return (
-        <div className="card-container">
+        <div className="container">
             <div className="row">
                 {vehicles.map((vehicle) => (
                     <div className="col-md-4 mb-4" key={vehicle.uid}>
@@ -25,12 +24,9 @@ const VehicleCards = () => {
                             />
                             <div className="card-body">
                                 <h5 className="card-title">{vehicle.name}</h5>
-                                <p className="card-text">
-                                    {`Vehicle ID: ${vehicle.uid}`}
-                                </p>
-                                <a href="#" className="btn btn-primary">
-                                    Learn More
-                                </a>
+                                <Link to={`/vehicles/${vehicle.uid}`} className="btn btn-primary">
+                                    Learn more
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -41,4 +37,6 @@ const VehicleCards = () => {
 };
 
 export default VehicleCards;
+
+
 

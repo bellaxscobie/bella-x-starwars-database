@@ -23,6 +23,7 @@ export const Home = () => {
       .then((response) => response.json())
       .then((data) => setPlanets(data.results)) 
       .catch((error) => console.error("Error fetching planets:", error));
+      
   }, []);
 
   return (
