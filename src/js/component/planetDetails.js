@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export const PlanetDetails = () => {
   const { uid } = useParams();
   const [planet, setPlanet] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://www.swapi.tech/api/planets/${uid}`)
@@ -17,7 +18,7 @@ export const PlanetDetails = () => {
   if (!planet) return <div>In a galaxy far far away...</div>;
 
   return (
-    <div className="container">
+    <div className="container" style={{ paddingTop: "2rem" }}>
       <div className="row justify-content-center">
         <div className="col-md-10 mb-4">
           <div className="card" style={{ display: "flex", flexDirection: "row" }}>
@@ -38,6 +39,17 @@ export const PlanetDetails = () => {
               <p className="card-text">Orbital Period: {planet.orbital_period}</p>
               <p className="card-text">Rotation Period: {planet.rotation_period}</p>
             </div>
+            <button
+              className="btn btn-danger"
+              onClick={() => navigate(-1)}
+              style={{
+                position: "absolute",
+                bottom: "20px",
+                right: "20px",
+              }}
+            >
+              Go Back
+            </button>
           </div>
         </div>
       </div>

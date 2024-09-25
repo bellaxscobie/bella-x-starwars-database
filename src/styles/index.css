@@ -1,6 +1,6 @@
 body {
     background-color: black;
-    color: white; /* Set text color to white for better contrast */
+    color: white; 
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -11,6 +11,6 @@ body {
   }
 
 .card {
-    flex: 0 0 auto; /* Prevent flex items from shrinking */
+    flex: 0 0 auto; 
   }
   

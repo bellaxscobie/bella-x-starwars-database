@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export const VehicleDetails = () => {
     const { uid } = useParams();
     const [vehicle, setVehicle] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`https://www.swapi.tech/api/vehicles/${uid}`)
@@ -15,7 +16,7 @@ export const VehicleDetails = () => {
     if (!vehicle) return <div>In a galaxy far far away...</div>;
 
     return (
-        <div className="container">
+        <div className="container" style={{ paddingTop: "2rem" }}>
             <div className="row justify-content-center">
                 <div className="col-md-10 mb-4">
                     <div className="card" style={{ display: "flex", flexDirection: "row" }}>
@@ -38,6 +39,17 @@ export const VehicleDetails = () => {
                             <p className="card-text">Consumables: {vehicle.consumables}</p>
                             <p className="card-text">Vehicle Class: {vehicle.vehicle_class}</p>
                         </div>
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => navigate(-1)}
+                            style={{
+                                position: "absolute",
+                                bottom: "20px",
+                                right: "20px",
+                            }}
+                        >
+                            Go Back
+                        </button>
                     </div>
                 </div>
             </div>
