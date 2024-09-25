@@ -17,14 +17,15 @@ export const VehicleDetails = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-md-8 mb-4">
-                    <div className="card">
+                <div className="col-md-10 mb-4">
+                    <div className="card" style={{ display: "flex", flexDirection: "row" }}>
                         <img
                             src={`https://starwars-visualguide.com/assets/img/vehicles/${uid}.jpg`}
                             className="card-img-top"
                             alt={vehicle.name}
+                            style={{ width: "50%", objectFit: "cover" }}
                         />
-                        <div className="card-body">
+                        <div className="card-body" style={{ color: "black" }}>
                             <h5 className="card-title">{vehicle.name}</h5>
                             <p className="card-text">Model: {vehicle.model}</p>
                             <p className="card-text">Manufacturer: {vehicle.manufacturer}</p>

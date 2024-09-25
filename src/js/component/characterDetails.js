@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export const CharacterDetails = () => {
-  const { id } = useParams();  
+  const { id } = useParams();
   const [character, setCharacter] = useState(null);
 
   useEffect(() => {
@@ -19,14 +19,15 @@ export const CharacterDetails = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-md-8 mb-4">
-          <div className="card" style={{ width: "100%" }}>
+        <div className="col-md-10 mb-4">
+          <div className="card" style={{ display: "flex", flexDirection: "row" }}>
             <img
               src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
               className="card-img-top"
               alt={character.name}
+              style={{ width: "50%", objectFit: "cover" }} // Adjust width as needed
             />
-            <div className="card-body">
+            <div className="card-body" style={{ color: "black" }}>
               <h5 className="card-title">{character.name}</h5>
               <p className="card-text">Birth Year: {character.birth_year}</p>
               <p className="card-text">Eye Color: {character.eye_color}</p>
@@ -51,3 +52,4 @@ export const CharacterDetails = () => {
 };
 
 export default CharacterDetails;
+

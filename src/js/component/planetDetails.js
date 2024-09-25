@@ -19,14 +19,15 @@ export const PlanetDetails = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-md-8 mb-4">
-          <div className="card" style={{ width: "100%" }}>
+        <div className="col-md-10 mb-4">
+          <div className="card" style={{ display: "flex", flexDirection: "row" }}>
             <img
               src={`https://starwars-visualguide.com/assets/img/planets/${uid}.jpg`}
               className="card-img-top"
               alt={planet.name}
+              style={{ width: "50%", objectFit: "cover" }}
             />
-            <div className="card-body">
+            <div className="card-body" style={{ color: "black" }}>
               <h5 className="card-title">{planet.name}</h5>
               <p className="card-text">Diameter: {planet.diameter}</p>
               <p className="card-text">Climate: {planet.climate}</p>
